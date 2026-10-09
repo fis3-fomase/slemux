@@ -1,0 +1,6 @@
+{{- /* dict "kicker" "title" ["subtitle"] */ -}}
+<section class="page-head">
+  <span class="eyebrow">{{ .kicker }}</span>
+  <h1 class="display">{{ .title }}</h1>
+  {{ with .subtitle }}<p class="page-subtitle">{{ . }}</p>{{ end }}
+</section>

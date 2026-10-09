@@ -1,0 +1,2 @@
+{{- /* dict "href" "text" ["external" true] */ -}}
+<a class="arrow-link" href="{{ .href }}"{{ if .external }} target="_blank" rel="noopener"{{ end }}>{{ .text }}{{ partial "arrow.html" }}</a>

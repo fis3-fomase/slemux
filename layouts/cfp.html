@@ -1,0 +1,47 @@
+{{ define "main" }}
+{{ partial "page-head.html" (dict "kicker" (printf "%s · %s" site.Params.acronym site.Params.colocated) "title" .Title) }}
+
+<section class="prose lead">{{ .Content }}</section>
+
+<section class="section">
+  <h2 class="section-title">Three perspectives</h2>
+  <div class="perspectives">
+    {{ range .Params.perspectives }}
+    <div class="perspective">
+      <h3 class="perspective-title">{{ .title }}</h3>
+      <div class="perspective-arrow">{{ partial "arrows.html" .arrow }}</div>
+      <p>{{ .text | markdownify }}</p>
+    </div>
+    {{ end }}
+  </div>
+</section>
+
+<section class="section">
+  <h2 class="section-title">Topics of interest</h2>
+  <p class="muted">Contributions are welcome on the following topics, among others:</p>
+  <ul class="bullets bullets-grid">
+    {{ range .Params.topics }}<li>{{ . | markdownify }}</li>{{ end }}
+  </ul>
+</section>
+
+<section class="section">
+  <h2 class="section-title">Contributions</h2>
+  <div class="kinds">
+    {{ range site.Data.contributions }}
+    <div class="kind">
+      <div class="kind-head">
+        <h3 class="kind-title">{{ .title }}</h3>
+        <span class="kind-length">{{ .length }}</span>
+      </div>
+      <p>{{ .text | markdownify }}</p>
+    </div>
+    {{ end }}
+  </div>
+  {{ partial "arrow-link.html" (dict "href" (site.GetPage "/submission").RelPermalink "text" "Submission guidelines") }}
+</section>
+
+<section class="section narrow">
+  <h2 class="section-title">Important dates</h2>
+  {{ partial "dates.html" . }}
+</section>
+{{ end }}

@@ -1,0 +1,17 @@
+# Header navigation. `pageRef` points at a file under content/.
+main:
+  - name: Call for papers
+    pageRef: /cfp
+    weight: 10
+  - name: Submission
+    pageRef: /submission
+    weight: 20
+  - name: Program
+    pageRef: /program
+    weight: 30
+  - name: Committee
+    pageRef: /committee
+    weight: 40
+  - name: Venue
+    pageRef: /venue
+    weight: 50

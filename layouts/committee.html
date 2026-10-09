@@ -1,0 +1,32 @@
+{{ define "main" }}
+{{ partial "page-head.html" (dict "kicker" site.Params.acronym "title" .Title) }}
+
+<section class="section-md stack stack-md">
+  <h2 class="eyebrow">Organisers</h2>
+  <div class="people">
+    {{ range .Params.organisers }}
+    <div class="person">
+      {{ if .url }}<a class="person-name" href="{{ .url }}" target="_blank" rel="noopener">{{ .name }}</a>{{ else }}<span class="person-name">{{ .name }}</span>{{ end }}
+      <span class="person-affiliation">{{ .affiliation }}</span>
+      {{ with .email }}<a class="person-email" href="mailto:{{ . }}">{{ . }}</a>{{ end }}
+    </div>
+    {{ end }}
+  </div>
+</section>
+
+<section class="section stack stack-md">
+  <h2 class="eyebrow">Programme committee</h2>
+  {{ with .Params.pc }}
+  <ul class="pc">
+    {{ range . }}<li><strong>{{ .name }}</strong><span class="muted"> · {{ .affiliation }}</span></li>{{ end }}
+  </ul>
+  {{ else }}
+  {{ partial "tba.html" (dict "text" "To be announced" "class" "tba-pc") }}
+  {{ end }}
+</section>
+
+<section class="section stack">
+  <h2 class="eyebrow">Contact</h2>
+  <a class="contact" href="mailto:{{ site.Params.contactEmail }}">{{ site.Params.contactEmail }}</a>
+</section>
+{{ end }}

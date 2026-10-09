@@ -1,0 +1,44 @@
+{{ define "main" }}
+{{ $p := site.Params }}
+<section class="hero">
+  <div class="hero-lockup">
+    {{ partial "logo.html" "hero-logo" }}
+    <div class="hero-wordmark" aria-hidden="true">{{ partial "wordmark.html" }}</div>
+  </div>
+  <div class="hero-text">
+    <h1 class="hero-title">{{ $p.name }}</h1>
+    <p class="claim">{{ partial "tint.html" $p.claim }}</p>
+  </div>
+</section>
+
+<section class="dateline" aria-label="Edition">
+  <div class="dateline-rail">
+    <span>{{ $p.edition }}</span><span>{{ $p.colocated }}</span><span>{{ $p.city }}</span><span>{{ $p.when }}</span>
+  </div>
+</section>
+
+<section class="split">
+  <div class="stack">
+    <h2 class="eyebrow">About</h2>
+    <div class="prose">{{ .Content }}</div>
+    <div class="links">
+      {{ partial "arrow-link.html" (dict "href" (site.GetPage "/cfp").RelPermalink "text" "Call for papers") }}
+      {{ partial "arrow-link.html" (dict "href" (site.GetPage "/submission").RelPermalink "text" "How to submit") }}
+    </div>
+  </div>
+  <div class="stack stack-lg">
+    <div>
+      <h2 class="eyebrow eyebrow-list">Important dates</h2>
+      {{ partial "dates.html" . }}
+    </div>
+    <div>
+      <h2 class="eyebrow eyebrow-list">At a glance</h2>
+      <ul class="leaders">
+        {{ range .Params.facts }}
+        <li class="leader"><span>{{ .label }}</span><span class="dots"></span><span>{{ .value }}</span></li>
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+</section>
+{{ end }}

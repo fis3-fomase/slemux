@@ -1,0 +1,12 @@
+{{ define "main" }}
+{{ $p := site.Params }}
+{{ partial "page-head.html" (dict "kicker" $p.acronym "title" $p.city "subtitle" (printf "%s · %s" $p.colocated $p.when)) }}
+
+<section class="section-sm stack">
+  <div class="prose lead">{{ .Content }}</div>
+  <div class="links">
+    {{ partial "arrow-link.html" (dict "href" $p.ecoopUrl "text" "ECOOP 2027 website" "external" true) }}
+    {{ partial "arrow-link.html" (dict "href" $p.workshopUrl "text" "SLEMuX on the ECOOP site" "external" true) }}
+  </div>
+</section>
+{{ end }}

@@ -1,0 +1,7 @@
+{{- /* A perspective line such as "macro → micro": tinted words, arrows drawn as SVG. */ -}}
+{{- $right := `<svg class="arrow-glyph" viewBox="0 0 32 14" aria-label="to" role="img"><path d="M1 7 H30"/><path d="M24 1.5 L30 7 L24 12.5"/></svg>` -}}
+{{- $both := `<svg class="arrow-glyph" viewBox="0 0 32 18" aria-label="and" role="img"><path d="M2 5 H30"/><path d="M25 1 L30 5 L25 9"/><path d="M30 13 H2"/><path d="M7 9 L2 13 L7 17"/></svg>` -}}
+{{- $s := string (partial "tint.html" .) -}}
+{{- $s = replaceRE `\s*→\s*` $right $s -}}
+{{- $s = replaceRE `\s*(⇄|↔)\s*` $both $s -}}
+{{- $s | safeHTML -}}

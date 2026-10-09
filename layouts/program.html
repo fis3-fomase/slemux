@@ -1,0 +1,46 @@
+{{ define "main" }}
+{{ partial "page-head.html" (dict "kicker" (printf "%s · %s" site.Params.acronym site.Params.when) "title" .Title) }}
+
+{{ if not .Params.showSchedule }}
+<section class="section-md stack stack-lg">
+  {{ partial "tba.html" (dict "text" (.Params.tbdTitle | default "To be announced") "class" "tba-program") }}
+  <p class="lead-text muted">{{ .Params.tbd | markdownify }}</p>
+</section>
+{{ else }}
+<p class="lead-text muted program-note">{{ .Params.note | markdownify }}</p>
+
+<section class="section-md schedule">
+  {{ range .Params.sessions }}
+  {{ $break := findRE `(?i)break` (.session | default "") }}
+  <div class="slot{{ if $break }} slot-break{{ end }}">
+    <span class="eyebrow">{{ .session }}</span>
+    <span class="slot-title">{{ .title | markdownify }}</span>
+    <span class="slot-time">{{ .time }}</span>
+  </div>
+  {{ end }}
+</section>
+
+<section class="section narrow-lg stack">
+  <h2 class="section-title">Plenary discussion</h2>
+  <p class="quote">“{{ .Params.plenaryTopic }}”</p>
+  <ul class="bullets">
+    {{ range .Params.questions }}<li>{{ . | markdownify }}</li>{{ end }}
+  </ul>
+  <p class="muted">{{ .Params.outcome | markdownify }}</p>
+</section>
+
+<section class="section narrow-lg stack">
+  <h2 class="section-title">Accepted contributions</h2>
+  {{ range .Params.accepted }}
+  <div class="paper">
+    <span class="paper-title">{{ .title }}</span>
+    <span class="paper-authors">{{ .authors }}</span>
+  </div>
+  {{ else }}
+  {{ $notify := "TBA" }}
+  {{ range site.Data.dates }}{{ if findRE `(?i)notif` .label }}{{ $notify = .date }}{{ end }}{{ end }}
+  <p class="pending">Listed here after notification ({{ $notify }}).</p>
+  {{ end }}
+</section>
+{{ end }}
+{{ end }}

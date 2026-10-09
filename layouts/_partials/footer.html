@@ -1,0 +1,6 @@
+{{ $p := site.Params }}
+<footer class="site-footer">
+  <span>{{ $p.acronym }} · {{ $p.colocated }} · {{ $p.city }}</span>
+  <span class="footer-support">{{ $p.support }}</span>
+  <a href="mailto:{{ $p.contactEmail }}">{{ $p.contactEmail }}</a>
+</footer>

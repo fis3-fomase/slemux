@@ -1,0 +1,20 @@
+# Workshop identity — shown in the header, hero, dateline, footer and <meta> tags.
+# Plain text. Page-specific content lives in content/*.md; shared lists in data/.
+
+acronym: SLEMuX’27
+name: 1st International Workshop on Software Language-based Engineering of Multi-X Systems
+# "micro", "macro", "meso" and "scales" are tinted automatically.
+claim: From micro to macro, and back again — across scales
+description: >-
+  SLEMuX’27 brings together the programming-language communities that address the
+  micro–macro link in collective systems. Co-located with ECOOP 2027, Turin, Italy.
+
+edition: 1st edition
+colocated: Co-located with ECOOP 2027
+city: Turin, Italy
+when: June 28–29, 2027
+
+ecoopUrl: https://2027.ecoop.org
+workshopUrl: https://2027.ecoop.org/home/slemux-2027
+contactEmail: roby.casadei@unibo.it
+support: Supported by the FoMaSE project (Fondo Italiano per la Scienza, FIS3), University of Bologna.

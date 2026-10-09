@@ -1,0 +1,39 @@
+{{ define "main" }}
+{{ partial "page-head.html" (dict "kicker" site.Params.acronym "title" .Title) }}
+
+<section class="submit-site">
+  <h2 class="eyebrow">Submission site</h2>
+  {{ with .Params.systemUrl }}
+  <a class="submit-link arrow-link" href="{{ . }}" target="_blank" rel="noopener">Submit on {{ $.Params.systemName }}{{ partial "arrow.html" }}</a>
+  {{ else }}
+  <p class="submit-link">{{ .Params.systemName }} <span class="submit-pending">opens with the call for papers</span></p>
+  {{ end }}
+</section>
+
+<section class="section-sm columns">
+  <div class="stack">
+    <h2 class="sub-title">Format</h2>
+    <p>{{ .Params.format | markdownify }}</p>
+    <ul class="leaders">
+      {{ range site.Data.contributions }}
+      <li class="leader"><span>{{ .title }}</span><span class="dots"></span><span class="leader-note">{{ .length }}</span></li>
+      {{ end }}
+    </ul>
+    {{ with .Params.templateUrl }}{{ partial "arrow-link.html" (dict "href" . "text" "ACM proceedings template" "external" true) }}{{ end }}
+  </div>
+  {{ with .Params.review }}
+  <div class="stack">
+    <h2 class="sub-title">Reviewing</h2>
+    {{ range . }}<p>{{ . | markdownify }}</p>{{ end }}
+  </div>
+  {{ end }}
+  <div class="stack">
+    <h2 class="sub-title">Proceedings</h2>
+    <p>{{ .Params.proceedings | markdownify }}</p>
+  </div>
+  <div>
+    <h2 class="sub-title sub-title-list">Dates</h2>
+    {{ partial "dates.html" . }}
+  </div>
+</section>
+{{ end }}

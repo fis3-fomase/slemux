@@ -1,0 +1,18 @@
+# Important dates — shown on the home, Call for papers and Submission pages.
+# `iso` (YYYY-MM-DD) drives the styling: past dates are struck through and the
+# next upcoming one is highlighted (recomputed in the browser, so it never goes stale).
+- label: Call for papers
+  date: January 2027
+  iso: 2027-01-01
+- label: Submission deadline
+  date: April 9, 2027
+  iso: 2027-04-09
+- label: Notification
+  date: May 7, 2027
+  iso: 2027-05-07
+- label: Camera-ready
+  date: May 28, 2027
+  iso: 2027-05-28
+- label: Workshop
+  date: June 28–29, 2027
+  iso: 2027-06-28

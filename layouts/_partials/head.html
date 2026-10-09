@@ -1,0 +1,18 @@
+{{ $p := site.Params -}}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ if .IsHome }}{{ $p.acronym }} · ECOOP 2027{{ else }}{{ .Title }} · {{ $p.acronym }}{{ end }}</title>
+<meta name="description" content="{{ $p.description }}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ $p.acronym }}">
+<meta property="og:title" content="{{ if .IsHome }}{{ $p.acronym }} — {{ $p.name }}{{ else }}{{ .Title }} · {{ $p.acronym }}{{ end }}">
+<meta property="og:description" content="{{ $p.description }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<link rel="canonical" href="{{ .Permalink }}">
+<link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&display=swap">
+{{ with resources.Get "css/main.css" | minify | fingerprint -}}
+<link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
+{{- end }}

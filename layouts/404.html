@@ -1,0 +1,6 @@
+{{ define "main" }}
+{{ partial "page-head.html" (dict "kicker" site.Params.acronym "title" "Page not found") }}
+<section class="section-sm">
+  {{ partial "arrow-link.html" (dict "href" site.Home.RelPermalink "text" "Back to the home page") }}
+</section>
+{{ end }}

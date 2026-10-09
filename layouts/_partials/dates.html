@@ -1,0 +1,15 @@
+{{- /* Important dates from data/dates.yaml. Past/next state is computed at build
+       time and refreshed in the browser by assets/js/main.js. */ -}}
+{{- $today := now.Format "2006-01-02" -}}
+{{- $next := -1 -}}
+{{- range $i, $d := site.Data.dates -}}
+  {{- if and (eq $next -1) (ge (time.Format "2006-01-02" $d.iso) $today) }}{{ $next = $i }}{{ end -}}
+{{- end -}}
+<ul class="leaders dates" data-dates>
+  {{- range $i, $d := site.Data.dates }}
+  {{- $iso := time.Format "2006-01-02" $d.iso }}
+  <li class="leader{{ if lt $iso $today }} is-past{{ end }}{{ if eq $i $next }} is-next{{ end }}" data-iso="{{ $iso }}">
+    <span class="leader-label">{{ $d.label }}</span><span class="dots"></span><time datetime="{{ $iso }}">{{ $d.date }}</time>
+  </li>
+  {{- end }}
+</ul>

@@ -1,0 +1,4 @@
+{{- /* Escapes a string and tints the words micro / macro / meso / scales. Returns HTML. */ -}}
+{{- $s := . | htmlEscape -}}
+{{- $s = replaceRE `(?i)\b(micro|macro|meso|scales)\b` `<span class="tint" data-w="$1">$1</span>` $s -}}
+{{- return (safeHTML $s) -}}

@@ -1,0 +1,17 @@
+# Hugo configuration — https://gohugo.io/configuration/
+# baseURL is overridden at deploy time by .github/workflows/publish.yaml,
+# so it only matters for local `hugo` builds.
+baseURL: https://slemux.github.io/2027/
+title: SLEMuX’27
+languageCode: en-gb
+defaultContentLanguage: en
+
+# A handful of standalone pages: no blog machinery.
+disableKinds: [taxonomy, term, RSS]
+enableRobotsTXT: true
+
+markup:
+  goldmark:
+    extensions:
+      typographer:
+        disable: false
