@@ -271,6 +271,22 @@ main { flex: 1; }
 }
 .arrow-glyph { width: 34px; height: 16px; stroke-width: 1.6; color: var(--color-neutral-700); }
 
+/* Arrow lines typed out in turn when the perspectives scroll into view (main.js) */
+.perspective-arrow { min-height: 1.6em; }
+.perspectives.is-waiting .perspective-title,
+.perspectives.is-waiting .perspective p { opacity: 0; transform: translateY(14px); }
+.perspective-title, .perspective p { transition: opacity 380ms ease, transform 380ms ease; }
+.perspectives.is-waiting .perspective .is-shown { opacity: 1; transform: none; }
+.perspective-arrow .arrow-glyph path { stroke-dasharray: 40; stroke-dashoffset: 0; transition: stroke-dashoffset 160ms ease; }
+.perspective-arrow .arrow-glyph.is-drawing path { stroke-dashoffset: 40; }
+.type-caret {
+  width: 2px; height: 1.05em; margin-left: -10px;
+  background: var(--color-text);
+  animation: caret 1s steps(1) infinite;
+}
+.is-typing > .type-caret { animation: none; }
+@keyframes caret { 50% { opacity: 0; } }
+
 .kinds { display: flex; flex-direction: column; gap: 24px; margin-bottom: 28px; }
 .kind {
   display: grid;
@@ -346,4 +362,5 @@ main { flex: 1; }
 @media (prefers-reduced-motion: reduce) {
   @view-transition { navigation: none; }
   .arrow-link { transition: none; }
+  .type-caret { display: none; }
 }

@@ -1,5 +1,6 @@
 // SLEMuX'27 — the only script on the site. Everything works without it;
-// it keeps the important dates current and animates the "To be announced" swarm.
+// it keeps the important dates current, animates the "To be announced" swarm,
+// and types out the perspective arrows on the call for papers.
 
 (function () {
   'use strict';
@@ -137,6 +138,66 @@
     });
   }
 
+  // ── Perspective arrows typed out ───────────────────────────────────────
+  // The first time the perspectives scroll into view, they come in one after
+  // the other (top-down, bottom-up, across scales): the title rises in, the
+  // arrow line is typed letter by letter with each arrow drawn as a stroke,
+  // then the text follows.
+  function arrowTyper(host) {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!('IntersectionObserver' in window)) return;
+
+    var sleep = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
+    host.classList.add('is-waiting');
+    var cards = Array.prototype.slice.call(host.querySelectorAll('.perspective')).map(function (card) {
+      var el = card.querySelector('.perspective-arrow');
+      var parts = Array.prototype.slice.call(el.children);
+      el.replaceChildren();
+      return { title: card.querySelector('.perspective-title'), text: card.querySelector('p'), el: el, parts: parts };
+    });
+    var caret = document.createElement('span');
+    caret.className = 'type-caret';
+
+    var type = async function (line) {
+      line.el.appendChild(caret);
+      line.el.classList.add('is-typing');
+      for (var part of line.parts) {
+        if (part.tagName.toLowerCase() === 'svg') {
+          part.classList.add('is-drawing');
+          line.el.insertBefore(part, caret);
+          part.getBoundingClientRect();
+          part.classList.remove('is-drawing');
+          await sleep(140);
+          continue;
+        }
+        var text = part.textContent;
+        part.textContent = '';
+        line.el.insertBefore(part, caret);
+        for (var ch of text) { part.textContent += ch; await sleep(22 + Math.random() * 18); }
+        await sleep(50);
+      }
+      line.el.classList.remove('is-typing');
+    };
+
+    var io = new IntersectionObserver(function (es) {
+      if (!es[0].isIntersecting) return;
+      io.disconnect();
+      (async function () {
+        for (var i = 0; i < cards.length; i++) {
+          var c = cards[i];
+          c.title.classList.add('is-shown');
+          await sleep(180);
+          await type(c);
+          if (c.text) c.text.classList.add('is-shown');
+          await sleep(i < cards.length - 1 ? 220 : 1200);
+        }
+        caret.remove();
+      })();
+    }, { rootMargin: '0px 0px -25% 0px' });
+    io.observe(host);
+  }
+
   refreshDates();
   document.querySelectorAll('[data-tba]').forEach(swarm);
+  document.querySelectorAll('[data-type-arrows]').forEach(arrowTyper);
 })();
